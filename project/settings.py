@@ -26,7 +26,7 @@ SECRET_KEY = 'z5*yiv9(mtgjol9h7sq=w0r#jhu9=1km7(_nk0eaiz=ax5$t^2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['appepay.herokuapp.com']
+ALLOWED_HOSTS = []
 #'appepay.herokuapp.com'
 
 # Application definition
