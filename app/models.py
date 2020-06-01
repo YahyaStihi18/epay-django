@@ -42,6 +42,7 @@ class ServiceGame(models.Model):
         
 class Order(models.Model):
     saller = models.CharField(blank=True,max_length=200)
+    product = models.CharField(blank=True,max_length=200)
     name = models.CharField(max_length=200,null=True,blank=False)
     phone = models.FloatField(null=True,blank=False)
     amount = models.FloatField(null=True,blank=False)

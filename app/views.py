@@ -29,11 +29,14 @@ def credit(request):
 def checkoutCredit(request, service_id):
     service = ServiceCredit.objects.get(pk=service_id)
     saller = service.distributor
+    product = service.name
     if request.method == "POST":
         form = OrderForm(request.POST, request.FILES)
         if form.is_valid():
             instance = form.save(commit=False)
             instance.saller = str(saller)
+            instance.save()
+            instance.product = str(product)
             instance.save()
             newamount = service.available-float(form.data['amount'])
             service.available = newamount
@@ -58,11 +61,14 @@ def games(request):
 def checkoutGames(request, service_id):
     service = ServiceGame.objects.get(pk=service_id)
     saller = service.distributor
+    product = service.name
     if request.method == "POST":
         form = OrderForm(request.POST, request.FILES)
         if form.is_valid():
             instance = form.save(commit=False)
             instance.saller = str(saller)
+            instance.save()
+            instance.product = str(product)
             instance.save()
             newamount = service.available-float(form.data['amount'])
             service.available = newamount
