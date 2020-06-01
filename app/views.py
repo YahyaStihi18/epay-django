@@ -9,6 +9,9 @@ from django.contrib import messages
 def index(request):
     return render(request, 'app/index.html')
 
+def details(request):
+    return render(request, 'app/details.html')
+
 
 def services(request):
     return render(request, 'app/services.html')

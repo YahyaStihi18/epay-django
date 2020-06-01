@@ -112,58 +112,106 @@
     <!-- Header Section End -->
 
     <!-- Breadcrumb Section Begin -->
-    <div class="breadcrumb-option set-bg" data-setbg="{% static 'app/images/breadcrumb/services9.jpg'%}">
+    <section class="services-details spad">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="breadcrumb__text">
-                        <h2>Epay Services</h2>
-                        <div class="breadcrumb__links">
-                            <a href="{% url 'index' %}">Home</a>
-                            <a href="{% url 'services'%}">Services</a>
-                            <span>View</span>
+                <div class="col-lg-12">
+                    <div class="services__details__text">
+                        <div class="services__details__title">
+                            <h2>About our distributors</h2>
+                            <p>our website is built with the main goal of
+                                confidence we can assure you that we only hire the best and the 
+                                efficient distributors in the market,
+                                 however our company is not responsible for the
+                                 deals that made with the distributors out side the main website,
+                                 please make sure that all of your transactions are made through 
+                                 our website so that can be saved and well documented.
+                                </p>
+                        </div>
+                        <div class="services__details__more">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <p>The first step in making a fair deal is checking the
+                                         product, our distributors offer different services at different prices 
+                                        and in different conditions. You are free to choose the services you prefer
+                                         according to your needs.
+                                         After choosing the right offer for you
+                                         You will be directed to the order form, please fill out the form carefully
+                                         the form requires correct informations such as the account id and the phone number,
+                                          review your informations several times before submitting
+                                           no place for mistakes.</p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <p>after submitting your order the distributor will receive all your the information 
+                                        including your payment prove,after checking the informations the distributor
+                                         will start processing your order in under 30 min,you are free to contact the distributor
+                                          to speed up the process ,in fact we recommend you to call the distributor before and after
+                                           the submission so the claint can be more confident ,we welcome you at any time feel free
+                                            to contact us for additional info.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{% url 'services' %}" class="primary-btn">our services</a>
+                    </div>
+                    <div class="services__details__img">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <img src="img/services/details/sd-1.jpg" alt="">
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <img src="img/services/details/sd-2.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="services__details__product">
+                        <h2>Simple process</h2>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="services__details__product__item">
+                                    <h4><span>01.</span> check our services</h4>
+                                    <p>Visit our website for the latest services and updates</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="services__details__product__item">
+                                    <h4><span>02.</span> choose your offer</h4>
+                                    <p>Take your time to find your suitable offer</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="services__details__product__item">
+                                    <h4><span>03.</span> make payment</h4>
+                                    <p>pay for your offer with any trustable method you can find</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="services__details__product__item">
+                                    <h4><span>04.</span> submit your info</h4>
+                                    <p>send us your informations and a clear picture of the payment proof</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="services__details__product__item">
+                                    <h4><span>05.</span> wait for approval</h4>
+                                    <p>the distributor will process your order after receiving your info immediately</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="services__details__product__item">
+                                    <h4><span>06.</span> enjoy your benefits</h4>
+                                    <p>enjoy whatever you paid for,
+                                        contact us if you have any problem</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <!-- Breadcrumb Section End -->
-
-    <!-- Services Section Begin -->
-    <section class="services spad">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="services__item">
-                        <div class="services__item__img">
-                            <img src="{% static 'app/images/credit.jpg'%}" alt="">
-                        </div>
-                        <div class="services__item__text">
-                            <h4><span>01.Credit</span> </h4>
-                            <p>However, there is much more to branding</p>
-                            <a href="{% url 'credit'%}">Find Out More</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="services__item">
-                        <div class="services__item__img">
-                            <img src="{% static 'app/images/game.jpeg'%}" alt="">
-                        </div>
-                        <div class="services__item__text">
-                            <h4><span>02.Games</span> </h4>
-                            <p>However, there is much more to branding</p>
-                            <a href="{% url 'games'%}">Find Out More</a>
-                        </div>
-                    </div>
-                </div>
-               
             </div>
         </div>
     </section>
+    
+    <!-- Services Details End -->
+
     <!-- Services End -->
 
   
