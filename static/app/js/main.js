@@ -106,9 +106,10 @@
 
     /*-----------------------
 		Range Slider
-	------------------------ */
-    var rangeSliderPrice = $(".price-range"),
-        price = $("#price");
+    ------------------------ */
+    /*
+    var rangeSliderPrice = $(".price-range");
+    var price = $("#price");
     rangeSliderPrice.slider({
         range: 'min',
         min: 0,
@@ -153,7 +154,8 @@
 
     /*-------------------
 		History Scroll
-	--------------------- */
+    --------------------- */
+    /*
     $(".nice-scroll").niceScroll({
         cursorcolor: "rgba(135, 196, 23, 0.3)",
         cursorwidth: "6px",
