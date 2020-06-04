@@ -40,19 +40,34 @@
         </div>
         <nav class="offcanvas__menu mobile-menu">
             <ul>
-                <li><a href="{% url 'index'%}">Home</a></li>
-                <li class="active"><a href="{% url 'services'%}">Services</a>
+                <li ><a href="{% url 'index'%}">Home</a></li>
+                <li class="active"><a href="{% url 'services' %}">Services</a>
                     <ul class="dropdown">
                         <li><a href="{% url 'credit' %}">Credit</a></li>
                         <li><a href="{% url 'games' %}">Games</a></li>
                     </ul>
                 </li>
                 <li><a href="{% url 'contact' %}">Contact</a></li>
+
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'profile' %}">Profile</a>
+                    <ul class="dropdown">
+                        <li><a href="{% url 'logout' %}">Logout {{ user.username }}</a></li>
+                    </ul>
+                </li>
+                {% else %}
+                <li><a href="{% url 'login' %}">Connect</a>
+                    <ul class="dropdown">
+                        <li><a href="{% url 'login' %}">Login</a></li>
+                        <li><a href="{% url 'register' %}">Register</a></li>
+                    </ul>
+                </li>
+                {% endif %}
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
         <ul class="offcanvas__widget">
-            <li><i class="fa fa-map-marker"></i> Algeria-Jijel</li>
+            <li><i class="fa fa-map-marker"></i> Algeria-jijel</li>
             <li><i class="fa fa-phone"></i> (213) 659-176-510</li>
             <li><i class="fa fa-envelope"></i> stihiyahya2016@gmail.com</li>
         </ul>
@@ -67,7 +82,7 @@
                 <div class="row">
                     <div class="col-lg-9">
                         <ul class="header__top__widget">
-                            <li><i class="fa fa-map-marker"></i> Algeria-Jijel</li>
+                            <li><i class="fa fa-map-marker"></i> Algeria-jijel</li>
                             <li><i class="fa fa-phone"></i> (213) 659-176-510</li>
                             <li><i class="fa fa-envelope"></i> stihiyahya2016@gmail.com</li>
                         </ul>
@@ -94,6 +109,22 @@
                                     </ul>
                                 </li>
                                 <li><a href="{% url 'contact' %}">Contact</a></li>
+
+                                {% if user.is_authenticated %}
+                                <li><a href="{% url 'profile' %}">Profile</a>
+                                    <ul class="dropdown">
+                                        <li><a href="{% url 'logout' %}">Logout {{ user.username }}</a></li>
+                                    </ul>
+                                </li>
+                                {% else %}
+                                <li><a href="{% url 'login' %}">Connect</a>
+                                    <ul class="dropdown">
+                                        <li><a href="{% url 'login' %}">Login</a></li>
+                                        <li><a href="{% url 'register' %}">Register</a></li>
+                                    </ul>
+                                </li>
+                                {% endif %}
+
                             </ul>
                         </nav>
                         <div class="header__search">
@@ -112,7 +143,7 @@
 
 
     <!-- Breadcrumb Section Begin -->
-    <div class="breadcrumb-option set-bg" data-setbg="{% static 'app/images/breadcrumb/breadcrumb-bg.jpg'%}">
+    <div class="breadcrumb-option set-bg" data-setbg="{% static 'app/images/breadcrumb/services9.jpg'%}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -165,7 +196,8 @@
                                 <h6 class="my-0">Service:</h6>
 
                                 <small class="text-muted">{{service.name}} Balance:
-                                    <span style="color: green; font-weight: 900; font-size:large;">{{service.currency}} Available
+                                    <span style="color: green; font-weight: 900; font-size:large;">{{service.currency}}
+                                        Available
                                         <!--{{service.available}}--></span></small>
                             </div>
                             <span class="text-muted">DZD {{service.price| floatformat:2}}</span>
@@ -255,14 +287,14 @@
     <!-- Services End -->
 
 
-      <!-- Footer Section Begin -->
-      <footer class="footer">
+    <!-- Footer Section Begin -->
+    <footer class="footer">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__logo">
-                          <img src="{% static 'app/images/footer-logo.png' %}" alt=""></a>
+                            <img src="{% static 'app/images/footer-logo.png' %}" alt=""></a>
                         </div>
                         <p>Please remember though that how far you go is up to you. There is no substitute for your own
                             work and effort in succeeding in this business.</p>
@@ -318,7 +350,10 @@
 
                     <div class="col-lg-6 col-md-6">
                         <div class="footer__copyright__text">
-                            <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved |<i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://mail.google.com/" target="_blank">stihiyahya2016@gmail.com</a></p>
+                            <p>Copyright &copy;
+                                <script>document.write(new Date().getFullYear());</script> All rights reserved |<i
+                                    class="fa fa-heart" aria-hidden="true"></i> by <a href="https://mail.google.com/"
+                                    target="_blank">stihiyahya2016@gmail.com</a></p>
                         </div>
                     </div>
 

@@ -48,6 +48,21 @@
                     </ul>
                 </li>
                 <li><a href="{% url 'contact' %}">Contact</a></li>
+
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'profile' %}">Profile</a>
+                    <ul class="dropdown">
+                        <li><a href="{% url 'logout' %}">Logout {{ user.username }}</a></li>
+                    </ul>
+                </li>
+                {% else %}
+                <li><a href="{% url 'login' %}">Connect</a>
+                    <ul class="dropdown">
+                        <li><a href="{% url 'login' %}">Login</a></li>
+                        <li><a href="{% url 'register' %}">Register</a></li>
+                    </ul>
+                </li>
+                {% endif %}
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -94,6 +109,22 @@
                                     </ul>
                                 </li>
                                 <li><a href="{% url 'contact' %}">Contact</a></li>
+
+                                {% if user.is_authenticated %}
+                                <li><a href="{% url 'profile' %}">Profile</a>
+                                    <ul class="dropdown">
+                                        <li><a href="{% url 'logout' %}">Logout {{ user.username }}</a></li>
+                                    </ul>
+                                </li>
+                                {% else %}
+                                <li><a href="{% url 'login' %}">Connect</a>
+                                    <ul class="dropdown">
+                                        <li><a href="{% url 'login' %}">Login</a></li>
+                                        <li><a href="{% url 'register' %}">Register</a></li>
+                                    </ul>
+                                </li>
+                                {% endif %}
+                                
                             </ul>
                         </nav>
                         <div class="header__search">

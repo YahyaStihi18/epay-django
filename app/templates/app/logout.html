@@ -41,28 +41,19 @@
         <nav class="offcanvas__menu mobile-menu">
             <ul>
                 <li><a href="{% url 'index'%}">Home</a></li>
-                < class="active" ><a href="{% url 'services' %}">Services</a>
+                <li><a href="{% url 'services' %}">Services</a>
                     <ul class="dropdown">
                         <li><a href="{% url 'credit' %}">Credit</a></li>
                         <li><a href="{% url 'games' %}">Games</a></li>
                     </ul>
                 </li>
                 <li><a href="{% url 'contact' %}">Contact</a></li>
-
-                {% if user.is_authenticated %}
-                <li><a href="{% url 'profile' %}">Profile</a>
-                    <ul class="dropdown">
-                        <li><a href="{% url 'logout' %}">Logout {{ user.username }}</a></li>
-                    </ul>
-                </li>
-                {% else %}
-                <li><a href="{% url 'login' %}">Connect</a>
+                <li class="active" ><a href="{% url 'login' %}">Connect</a>
                     <ul class="dropdown">
                         <li><a href="{% url 'login' %}">Login</a></li>
                         <li><a href="{% url 'register' %}">Register</a></li>
                     </ul>
                 </li>
-                {% endif %}
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -102,7 +93,7 @@
                         <nav class="header__menu">
                             <ul>
                                 <li><a href="{% url 'index' %}">Home</a></li>
-                                <li class="active" ><a href="{% url 'services' %}">Services</a>
+                                <li><a href="{% url 'services' %}">Services</a>
                                     <ul class="dropdown">
                                         <li><a href="{% url 'credit' %}">Credit</a></li>
                                         <li><a href="{% url 'games' %}">Games</a></li>
@@ -110,20 +101,12 @@
                                 </li>
                                 <li><a href="{% url 'contact' %}">Contact</a></li>
 
-                                {% if user.is_authenticated %}
-                                <li><a href="{% url 'profile' %}">Profile</a>
-                                    <ul class="dropdown">
-                                        <li><a href="{% url 'logout' %}">Logout {{ user.username }}</a></li>
-                                    </ul>
-                                </li>
-                                {% else %}
-                                <li><a href="{% url 'login' %}">Connect</a>
+                                <li class="active" ><a href="{% url 'login' %}">Connect</a>
                                     <ul class="dropdown">
                                         <li><a href="{% url 'login' %}">Login</a></li>
                                         <li><a href="{% url 'register' %}">Register</a></li>
                                     </ul>
                                 </li>
-                                {% endif %}
 
                             </ul>
                         </nav>
@@ -140,6 +123,8 @@
     </header>
     <!-- Header Section End -->
 
+
+
     <!-- Breadcrumb Section Begin -->
     <div class="breadcrumb-option set-bg" data-setbg="{% static 'app/images/breadcrumb/services9.jpg'%}">
         <div class="container">
@@ -148,10 +133,10 @@
                     <div class="breadcrumb__text">
                         <h2>Epay Services</h2>
                         <div class="breadcrumb__links">
-                            <a href="{% url 'index'%}">Home</a>
-                            <a href="{% url 'services'%}">Services</a>
-                            <a href="{% url 'games'%}">Games</a>
-                            <span>Checkout</span>
+                            <a href="{% url 'index' %}">Home</a>
+                            <a href="{% url 'services' %}">Services</a>
+                            <a href="#">Checkout</a>
+                            <span>Submit</span>
                         </div>
                     </div>
                 </div>
@@ -160,28 +145,24 @@
     </div>
     <!-- Breadcrumb Section End -->
 
-    <!-- Services Section Begin -->
-    <section class="services spad">
-        <div class="container">
-            <div class="row">
-                {% for service in services %}
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="services__item">
-                        <div class="services__item__img">
-                            <img src="{{service.image.url}}" style="max-height: 18rem;" alt="">
-                        </div>
-                        <div class="services__item__text">
-                            <h4><span>DZD {{service.price}}</span></h4>
-                            <p style="font-weight: 900;">Recharge: {{ service.name}}</p>
-                            <a href="{% url 'checkoutgames' service.id %}">order now</a>
-                        </div>
-                    </div>
-                </div>
-                {% endfor%}
-            </div>
+
+    <!-- form info Section Begin -->
+    <br>
+    <div style="max-width: 40rem; margin: auto; background-color: white; padding: 10px;">
+        <legend class="border-bottom mb-4">you are logged out ! </legend>
+
+        <div class="border_top pt-3">
+            <small class="text-muted">
+                have an account?<a href="{% url 'login'%}"> log in again </a>
+                <hr>
+
+                <a href="{% url 'index'%}">Home Page</a>
+
+            </small>
         </div>
-    </section>
-    <!-- Services End -->
+    </div>
+    <!--form ends here-->
+
 
 
     <!-- Footer Section Begin -->

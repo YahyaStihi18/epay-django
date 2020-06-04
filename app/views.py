@@ -1,7 +1,13 @@
-from django.shortcuts import render, Http404, HttpResponseRedirect, reverse
+from django.shortcuts import render, Http404, HttpResponseRedirect, reverse,redirect
 from .models import *
 from .forms import OrderForm
 from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from .forms import UserRegisterFrom
+from django.contrib.auth.models import User
+
+
 
 # Create your views here.
 
@@ -34,6 +40,11 @@ def checkoutCredit(request, service_id):
         form = OrderForm(request.POST, request.FILES)
         if form.is_valid():
             instance = form.save(commit=False)
+            if request.user.is_authenticated:
+                instance.user = request.user
+                instance.save()
+            else:
+                pass
             instance.saller = str(saller)
             instance.save()
             instance.product = str(product)
@@ -66,6 +77,11 @@ def checkoutGames(request, service_id):
         form = OrderForm(request.POST, request.FILES)
         if form.is_valid():
             instance = form.save(commit=False)
+            if request.user.is_authenticated:
+                instance.user = request.user
+                instance.save()
+            else:
+                pass
             instance.saller = str(saller)
             instance.save()
             instance.product = str(product)
@@ -83,3 +99,20 @@ def checkoutGames(request, service_id):
     form = OrderForm()
     return render(request, 'app/checkout.html', {'service': service, 'form': form})
 
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegisterFrom(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f"new user '{username}' created seccefully")
+            return redirect('login')
+    else:
+        form = UserRegisterFrom()
+    return render(request, 'app/register.html', {'form':form})
+
+@login_required
+def profile(request):
+    return render(request,'app/profile.html')

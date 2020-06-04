@@ -1,5 +1,7 @@
 from django.db import models
 from phonenumber_field.modelfields import  PhoneNumberField
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 
@@ -41,6 +43,7 @@ class ServiceGame(models.Model):
         return self.name
         
 class Order(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE, null=True, blank=True)
     saller = models.CharField(blank=True,max_length=200)
     product = models.CharField(blank=True,max_length=200)
     name = models.CharField(max_length=200,null=True,blank=False)
