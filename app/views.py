@@ -115,4 +115,8 @@ def register(request):
 
 @login_required
 def profile(request):
-    return render(request,'app/profile.html')
+
+    orders = Order.objects.filter(user=request.user)
+    orders.order_by('date')
+
+    return render(request,'app/profile.html',{'orders':orders})

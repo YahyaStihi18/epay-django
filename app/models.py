@@ -1,6 +1,7 @@
 from django.db import models
 from phonenumber_field.modelfields import  PhoneNumberField
 from django.contrib.auth.models import User
+import datetime
 
 
 # Create your models here.
@@ -51,6 +52,7 @@ class Order(models.Model):
     amount = models.FloatField(null=True,blank=False)
     email = models.EmailField(null=True,blank=True)
     accountId = models.TextField(default='',blank=False)
+    date = models.DateField(default= datetime.date.today)
     image = models.ImageField('Label')
 
     def __str__(self):
