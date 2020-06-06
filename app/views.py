@@ -8,6 +8,7 @@ from .forms import UserRegisterFrom
 from django.contrib.auth.models import User
 from django.db.models import F
 from django.core.exceptions import PermissionDenied
+from django.views.generic import ListView,CreateView
 
 
 
@@ -21,19 +22,16 @@ def index(request):
 def details(request):
     return render(request, 'app/details.html')
 
-
 def services(request):
     return render(request, 'app/services.html')
 
 def contact(request):
     return render(request, 'app/contact.html')
 
-
 def credit(request):
     services = ServiceCredit.objects.all()
     context = {'services': services}
     return render(request, 'app/credit.html', context)
-
 
 def checkoutCredit(request, service_id):
     service = ServiceCredit.objects.get(pk=service_id)
@@ -74,7 +72,6 @@ def games(request):
     context = {'services': services}
     return render(request, 'app/games.html', context)
 
-
 def checkoutGames(request, service_id):
     service = ServiceGame.objects.get(pk=service_id)
     saller = service.distributor
@@ -109,7 +106,6 @@ def checkoutGames(request, service_id):
     return render(request, 'app/checkout.html', {'service': service, 'form': form})
 
 
-
 def register(request):
     if request.method == 'POST':
         form = UserRegisterFrom(request.POST)
@@ -141,20 +137,25 @@ def delete(request, order_pk):
 @login_required
 def saller(request):
     user = request.user
-    distributor = Distributor.objects.get(user=user)
-    orders = Order.objects.filter(saller=user).order_by('-date')
-    services_games = ServiceGame.objects.filter(distributor=distributor)
-    services_credit = ServiceCredit.objects.filter(distributor=distributor)
-
-    context = {'distributor':distributor,
+    if user.is_staff :
+        distributor = Distributor.objects.get(user=user)
+        orders = Order.objects.filter(saller=user).order_by('date')
+        services_games = ServiceGame.objects.filter(distributor=distributor)
+        services_credit = ServiceCredit.objects.filter(distributor=distributor)
+        context = {'distributor':distributor,
                 'services_games':services_games,
                 'services_credit':services_credit,
                 'orders':orders,
                }
-    if user.is_staff :
         return render(request,'app/saller.html',context)
     else:
         raise PermissionDenied()
+
+class ServiceCreateView(CreateView):
+    model = Order
+    fields = ['name','price','currency','available']
+
+
 
 
 

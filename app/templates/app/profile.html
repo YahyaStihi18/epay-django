@@ -151,6 +151,14 @@
                             <h6 class="my-0">Email:</h6>
                             <small class="text-muted">{{user.email}}</small>
                         </div>
+                        {% if user.is_staff %}
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div style="width:100%;">
+                                <h6 class="my-0"><a type="button" class="btn btn-success" style="width:100%;"
+                                        role="button" href="{% url 'saller'%}">MY Store</a></h6>
+                            </div>
+                        </li>
+                        {% endif %}
                 </ul>
             </div>
 
