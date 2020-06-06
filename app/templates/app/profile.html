@@ -159,20 +159,24 @@
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">My Orders:</h4>
                 {% for order in orders %}
+                {% if order.visible_for_buyer == True %}
                 <div class="card text-center">
                     <div class="card-header">
                       {{ order.product }} 
                     </div>
                     <div class="card-body" style="text-align: left;">
-                      <h5 class="card-title">{{ order.amount|floatformat:2}} Unit From: {{ order.saller }}</h5>
+                      <h5 class="card-title">{{ order.amount|floatformat:2}} {{ order.currency }} From: {{ order.saller }}</h5>
+                      <small style="color: green; float: right;">{{ order.status }}</small>
                       <p class="card-text">proof of payment: <a href="{{ order.image.url }}">View Image.</a></p>
                     </div>
                     <div class="card-footer text-muted">
-                        <a href="#" class="btn btn-danger" style="float: right;">Delete</a>
+                        <a href="{% url 'delete' order.pk %}" class="btn btn-danger" style="float: right;">Delete</a>
                       <small style="float: left;">{{ order.date }}</small>
                     </div>
                   </div>
                   <br>
+                  {% endif %}
+
 
                 {% endfor %}
                 

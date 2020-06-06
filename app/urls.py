@@ -12,6 +12,8 @@ urlpatterns = [
     path('services/games/', views.games, name='games'),
     path('services/checkout/credit/<int:service_id>/', views.checkoutCredit, name='checkoutcredit'),
     path('services/checkout/games/<int:service_id>/', views.checkoutGames,name='checkoutgames'),
+    path('profile/delete/<int:order_pk>/', views.delete, name='delete'),
+    path('saller/',views.saller,name="saller"),
 
     path('profile/', views.profile,name='profile'),
     path('register/', views.register,name='register'),

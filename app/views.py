@@ -1,4 +1,4 @@
-from django.shortcuts import render, Http404, HttpResponseRedirect, reverse,redirect
+from django.shortcuts import render, Http404, HttpResponseRedirect, reverse,redirect,get_object_or_404
 from .models import *
 from .forms import OrderForm
 from django.contrib import messages
@@ -6,6 +6,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterFrom
 from django.contrib.auth.models import User
+from django.db.models import F
+from django.core.exceptions import PermissionDenied
+
 
 
 
@@ -36,6 +39,7 @@ def checkoutCredit(request, service_id):
     service = ServiceCredit.objects.get(pk=service_id)
     saller = service.distributor
     product = service.name
+    currency = service.currency
     if request.method == "POST":
         form = OrderForm(request.POST, request.FILES)
         if form.is_valid():
@@ -45,6 +49,8 @@ def checkoutCredit(request, service_id):
                 instance.save()
             else:
                 pass
+            instance.currency = str(currency)
+            instance.save()
             instance.saller = str(saller)
             instance.save()
             instance.product = str(product)
@@ -73,6 +79,7 @@ def checkoutGames(request, service_id):
     service = ServiceGame.objects.get(pk=service_id)
     saller = service.distributor
     product = service.name
+    currency = service.currency
     if request.method == "POST":
         form = OrderForm(request.POST, request.FILES)
         if form.is_valid():
@@ -82,6 +89,8 @@ def checkoutGames(request, service_id):
                 instance.save()
             else:
                 pass
+            instance.currency = str(currency)
+            instance.save()
             instance.saller = str(saller)
             instance.save()
             instance.product = str(product)
@@ -113,10 +122,39 @@ def register(request):
         form = UserRegisterFrom()
     return render(request, 'app/register.html', {'form':form})
 
+
 @login_required
 def profile(request):
-
-    orders = Order.objects.filter(user=request.user)
-    orders.order_by('date')
-
+    orders = Order.objects.filter(user=request.user).order_by('-date')
     return render(request,'app/profile.html',{'orders':orders})
+
+def delete(request, order_pk):
+    user = request.user  # you get the loged user
+    order = Order.objects.get(pk=order_pk)  # you get the order through the pk
+    if order.user == user:  # you check if the user is the owner of the order
+        order.visible_for_buyer = False  # set the attr to false
+        order.save()  # save that specific object
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))  # you redirect to the page you came (you can change this for whatever you want)
+    else:
+        raise PermissionDenied()  # in case someone that is not the user tries to execute that view through the url you make, it will raise an error.
+
+@login_required
+def saller(request):
+    user = request.user
+    distributor = Distributor.objects.get(user=user)
+    orders = Order.objects.filter(saller=user).order_by('-date')
+    services_games = ServiceGame.objects.filter(distributor=distributor)
+    services_credit = ServiceCredit.objects.filter(distributor=distributor)
+
+    context = {'distributor':distributor,
+                'services_games':services_games,
+                'services_credit':services_credit,
+                'orders':orders,
+               }
+    if user.is_staff :
+        return render(request,'app/saller.html',context)
+    else:
+        raise PermissionDenied()
+
+
+

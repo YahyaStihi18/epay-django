@@ -10,12 +10,12 @@ import datetime
 
 
 class Distributor(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE,null=True, blank=True)
     service_ch =[('credit','credit'),('games','games')]
     name = models.CharField(max_length=200,null=True,blank=False)
     phone = PhoneNumberField(null=True,blank=False)
     address = models.CharField(max_length=200,null=True,blank=False)
     facebook = models.CharField(max_length=200,null=True,blank=False)
-    service = models.CharField(choices=service_ch,max_length=20,null=True,blank=False)
     ccp = models.BigIntegerField(null=True,blank=False)
     key = models.IntegerField(null=True,blank=False)
     def __str__(self):
@@ -44,16 +44,22 @@ class ServiceGame(models.Model):
         return self.name
         
 class Order(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE, null=True, blank=True)
+    status_ch = [('in process','in process'),('complete','complete')]
+    visible_ch = [('yes','yes'),('no','no')]
+    status = models.CharField(choices=status_ch,max_length=20,null=True,blank=False,default='in process')
+    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True, blank=True)
     saller = models.CharField(blank=True,max_length=200)
     product = models.CharField(blank=True,max_length=200)
+    currency = models.CharField(blank=True,max_length=200)
     name = models.CharField(max_length=200,null=True,blank=False)
     phone = models.FloatField(null=True,blank=False)
     amount = models.FloatField(null=True,blank=False)
     email = models.EmailField(null=True,blank=True)
     accountId = models.TextField(default='',blank=False)
-    date = models.DateField(default= datetime.date.today)
+    date = models.DateTimeField(auto_now_add=True)
     image = models.ImageField('Label')
+    visible_for_saller = models.BooleanField(default=True)
+    visible_for_buyer = models.BooleanField(default=True)
 
     def __str__(self):
         return self.saller
