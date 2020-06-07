@@ -30,6 +30,7 @@ class Service(models.Model):
     price = models.FloatField(default=0.00)
     currency = models.CharField(choices=currency_ch,max_length=20,null=True,blank=False)
     available = models.FloatField(null=True,blank=False)
+    note = models.TextField(null=True,blank=True)
     image = models.ImageField(default='defser.png')
     def __str__(self):
         return self.name

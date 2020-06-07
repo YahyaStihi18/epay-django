@@ -144,16 +144,19 @@
 
 
     <!-- form info Section Begin -->
-    <main role="main" class="container">
-        </div>
+    <main role="main" class="container"> 
         <div style="max-width: 40rem; margin: auto; padding: 10px;">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags}} m2" id="msg" role="alert" style="text-align: center;">{{message}}</div>
+                
+            {% endfor%}
+            {% endif %}
             
             <form class="needs-validation" action="." method="POST" enctype='multipart/form-data'>
-                
-                
                 {% csrf_token %} 
                 <div class="form-group">
-                    <label>saller:</label>
+                    <label>Distributor: <small class="text-muted"> (select your own distributor accountt)</small></label>
                     {{ form.distributor}}
                   </div>
                 <div class="form-group">
@@ -161,30 +164,34 @@
                     {{form.model}}
                   </div>
                 <div class="form-group">
-                  <label>Name:</label>
+                  <label>Service Name:</label>
                   {{form.name}}
                 </div>
                 <div class="form-group">
-                    <label>Currency:</label>
+                    <label>Service Currency:</label>
                     {{form.currency}}
                   </div>
                   <div class="form-group">
-                    <label>Available:</label>
+                    <label>Amount Available:</label>
                     {{form.available}}
                   </div>
                   <div class="form-group">
-                    <label>price: DZD</label>
+                    <label>Price For Unit: DZD</label>
                     {{form.price}}
                   </div>
                   <div class="form-group">
-                    <label for="exampleFormControlFile1">Example file input</label>
+                    <label>Note:</label>
+                    {{form.note}}
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleFormControlFile1">Service Image</label>
                     {{form.image}}
                   </div>
                   <hr>
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>
-
         </div>
+        
     </main>
     <!--form ends here-->
 

@@ -227,8 +227,9 @@
                                     </div>
                                     <div class="services__item__text">
                                         <h4><span>DZD {{service.price}}</span></h4>
-                                        <p style="font-weight: 900;">{{ service.name}}: {{ service.available}} {{ service.currency }}</p>
-                                        <a href="#">Edit</a>
+                                        <p style="font-weight: 900;">{{ service.name}}<br>
+                                            Balance: {{ service.available}} {{ service.currency }}</p>
+                                        <a href="{% url 'update'  %}">Edit</a>
                                     </div>
                                 </div>
                             </div>

@@ -25,9 +25,9 @@ class UserRegisterFrom(UserCreationForm):
 
 
 class ServiceForm(forms.ModelForm):
-    class Meta():
+    class Meta:
         model = Service
-        fields = ['distributor','model','name','price','currency','available','image']
+        fields = ['distributor','model','name','price','currency','available','note','image']
         
     def __init__(self, *args, **kwargs):
         super(ServiceForm, self).__init__(*args, **kwargs)
@@ -37,6 +37,8 @@ class ServiceForm(forms.ModelForm):
         self.fields['price'].widget.attrs['class'] = 'form-control-account'
         self.fields['currency'].widget.attrs['class'] = 'form-control-account'
         self.fields['available'].widget.attrs['class'] = 'form-control-account'
+        self.fields['note'].widget.attrs['class'] = 'form-control-account'
+
 
         
 

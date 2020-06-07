@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path,reverse
 from . import views
 from django.contrib.auth import views as auth_views
 
@@ -14,8 +14,7 @@ urlpatterns = [
 
     path('saller/',views.saller,name="saller"),
     path('saller/service/add/', views.service_create, name='add'),
-
-
+    path('saller/update',views.service_update,name='update'),
 
     path('profile/', views.profile,name='profile'),
     path('profile/delete/<int:order_pk>/', views.delete, name='delete'),

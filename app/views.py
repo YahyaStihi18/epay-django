@@ -4,13 +4,11 @@ from .forms import OrderForm,ServiceForm
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from .forms import UserRegisterFrom
 from django.contrib.auth.models import User
 from django.db.models import F
 from django.core.exceptions import PermissionDenied
-from django.views.generic import CreateView,UpdateView
-
 
 
 
@@ -121,19 +119,41 @@ def saller(request):
 
 def service_create(request):
     user = request.user
-    #distributor = Distributor.objects.get(user=user)
     if request.method == "POST":
         form = ServiceForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            messages.success(
-                request, 'your Service has been created successfully')
+            distributor = form.cleaned_data['distributor']
+            if str(distributor) != str(user.username) :
+                messages.warning(request, "please select your own distributor accountt")
+                return redirect('add')
+            else:
+                form.save()
+                messages.success(
+                    request, 'your Service has been saved')
 
-            return HttpResponseRedirect(reverse('saller'))
-
+                return HttpResponseRedirect(reverse('saller'))
 
     form = ServiceForm()
-    return render(request, 'app/service_form.html', {'form': form})
+    return render(request, 'app/service_add.html', {'form': form})
+
+def service_update(request):
+    user = request.user
+    if request.method == "POST":
+        form = ServiceForm(request.POST, request.FILES)
+        if form.is_valid():
+            distributor = form.cleaned_data['distributor']
+            if str(distributor) != str(user.username) :
+                messages.warning(request, "please select your own distributor accountt")
+                return redirect('add')
+            else:
+                form.save()
+                messages.success(
+                    request, 'your Service has been saved')
+
+                return HttpResponseRedirect(reverse('saller'))
+
+    form = ServiceForm()
+    return render(request, 'app/service_add.html', {'form': form})
 
 
 
