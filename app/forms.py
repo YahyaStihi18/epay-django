@@ -16,8 +16,27 @@ class OrderForm(forms.ModelForm):
         self.fields['email'].widget.attrs['class'] = 'form-control'
         self.fields['accountId'].widget.attrs['class'] = 'form-control-account'
 
+
 class UserRegisterFrom(UserCreationForm):
     email = forms.EmailField()
     class Meta:
         model = User
         fields = ['username','email','password1','password2']
+
+
+class ServiceForm(forms.ModelForm):
+    class Meta():
+        model = Service
+        fields = ['distributor','model','name','price','currency','available','image']
+        
+    def __init__(self, *args, **kwargs):
+        super(ServiceForm, self).__init__(*args, **kwargs)
+        self.fields['model'].widget.attrs['class'] = 'form-control-account'
+        self.fields['name'].widget.attrs['class'] = 'form-control-account'
+        self.fields['distributor'].widget.attrs['class'] = 'form-control-account'
+        self.fields['price'].widget.attrs['class'] = 'form-control-account'
+        self.fields['currency'].widget.attrs['class'] = 'form-control-account'
+        self.fields['available'].widget.attrs['class'] = 'form-control-account'
+
+        
+

@@ -128,12 +128,18 @@
                 <span class="fa fa-bars"></span>
             </div>
         </div>
+
         <hr>
     </header>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags}} m2" id="msg" role="alert" style="text-align: center;">
+        {{message}}
+    {% endfor%}
+    {% endif %}</div>
 
  <!-- Services Section Begin -->
  <section class="services spad">
-
     <div class="container" >
         <div class="row">
             <div class="col-md-4 order-md-1 mb-4">
@@ -144,7 +150,7 @@
                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                         <div>
                             <h6 class="my-0">Name:</h6>
-                            <small class="text-muted">{{distributor.name}}</small>
+                            <small class="text-muted">{{distributor.user}}</small>
                         </div>
                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                         <div>
@@ -205,16 +211,15 @@
 
 
             <!-- form info Section Begin -->
+
             <div class="col-md-8 order-md-1" >
-                <a hr style="float: right;" href="#">add</a>
+                <a hr style="float: right;" href="{% url 'add' %}">add</a>
                 <h4 class="mb-3">My Services:</h4>
+                <hr>
                 <section >
                     <div class="container">
-                        <hr>
-                        <h4>Credit</h4>
-                        <hr>
                         <div class="row">
-                            {% for service in services_credit %}
+                            {% for service in services %}
                             <div class="col-lg-4 col-md-4 col-sm-4">
                                 <div class="services__item">
                                     <div class="services__item__img">
@@ -223,31 +228,13 @@
                                     <div class="services__item__text">
                                         <h4><span>DZD {{service.price}}</span></h4>
                                         <p style="font-weight: 900;">{{ service.name}}: {{ service.available}} {{ service.currency }}</p>
-                                        <a href="{% url 'checkoutgames' service.id %}">Edit</a>
+                                        <a href="#">Edit</a>
                                     </div>
                                 </div>
                             </div>
                             {% endfor%}
                         </div>
                         <hr>
-                        <h4>Games</h4>
-                        <hr>
-                        <div class="row">
-                            {% for service in services_games %}
-                            <div class="col-lg-4 col-md-4 col-sm-6">
-                                <div class="services__item">
-                                    <div class="services__item__img">
-                                        <img src="{{service.image.url}}" style="max-height: 10rem;" alt="">
-                                    </div>
-                                    <div class="services__item__text">
-                                        <h4><span>DZD {{service.price}}</span></h4>
-                                        <p style="font-weight: 900;">Recharge: {{ service.name}}</p>
-                                        <a href="{% url 'checkoutgames' service.id %}">order now</a>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor%}
-                    </div>
                 </section>
                 <!-- Services End -->
 
@@ -262,12 +249,6 @@
 </section>
 
 <!-- Services End -->
-
-
-
-
-
-
 
     <!--form ends here-->
 
