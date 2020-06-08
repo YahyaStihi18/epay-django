@@ -185,13 +185,17 @@
 
                         </thead>
                         <tbody>
+                        
                             {% for order in orders %}
-                          <tr>
-                            {% if order.status == 'complete' %}
-                            <td style="color: red;">{{order.amount}} {{ order.currency}} {{order.product}}
-                            {% else %}
-                            <td style="color: green;">{{order.amount}} {{ order.currency}} {{order.product}}
-                            {% endif %}
+                                {% if order.visible_for_buyer == True %}
+                                    <tr>
+                                        {% if order.status == 'complete' %}
+                                        <td style="color: red;">{{order.amount}} {{ order.currency}} {{order.product}}
+                                        {% else %}
+                                        <td style="color: green;">{{order.amount}} {{ order.currency}} {{order.product}}
+                                         {% endif %}
+
+
                             <h5 style="padding-top: 15px;">{{ order.name }}</h5>
                             </td>
 
@@ -202,6 +206,7 @@
                             <small class="text-muted" style="font-size: 12px;">{{order.date}}</small></td>
                             </td>
                           </tr>
+                          {% endif %}
                           {% endfor %}
                         </tbody>
                       </table>
@@ -213,7 +218,7 @@
             <!-- form info Section Begin -->
 
             <div class="col-md-8 order-md-1" >
-                <a hr style="float: right;" href="{% url 'add' %}">add</a>
+                <a style="float: right;" type="button" class="btn btn-success"role="button" href="{% url 'add' %}">Add+</a>
                 <h4 class="mb-3">My Services:</h4>
                 <hr>
                 <section >
@@ -229,7 +234,12 @@
                                         <h4><span>DZD {{service.price}}</span></h4>
                                         <p style="font-weight: 900;">{{ service.name}}<br>
                                             Balance: {{ service.available}} {{ service.currency }}</p>
-                                        <a href="{% url 'update'  %}">Edit</a>
+                                    <div style="padding:15px;">
+
+                                        <a  style="float: left; width: 4rem; color: red;" href="{% url 'delete_service' service.id %}">Delete</a>
+                                        <a  style="float: right;width: 4rem;color: green;" href="{% url 'edit' service.id %}">Edit</a>
+                                        
+                                    </div>
                                     </div>
                                 </div>
                             </div>

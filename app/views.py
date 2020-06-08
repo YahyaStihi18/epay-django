@@ -1,15 +1,14 @@
-from django.shortcuts import render, Http404, HttpResponseRedirect, reverse,redirect,get_object_or_404
+from django.shortcuts import render, Http404, HttpResponseRedirect, reverse, redirect, get_object_or_404
 from .models import *
-from .forms import OrderForm,ServiceForm
+from .forms import OrderForm, ServiceForm
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import UserRegisterFrom
 from django.contrib.auth.models import User
 from django.db.models import F
 from django.core.exceptions import PermissionDenied
-
 
 
 # Create your views here.
@@ -18,24 +17,30 @@ from django.core.exceptions import PermissionDenied
 def index(request):
     return render(request, 'app/index.html')
 
+
 def details(request):
     return render(request, 'app/details.html')
+
 
 def services(request):
     return render(request, 'app/services.html')
 
+
 def contact(request):
     return render(request, 'app/contact.html')
 
+
 def credit(request):
-    services = Service.objects.filter(model ='credit')
+    services = Service.objects.filter(model='credit')
     context = {'services': services}
     return render(request, 'app/credit.html', context)
 
+
 def games(request):
-    services = Service.objects.filter(model= 'game')
+    services = Service.objects.filter(model='game')
     context = {'services': services}
     return render(request, 'app/games.html', context)
+
 
 def checkout(request, service_id):
     service = Service.objects.get(pk=service_id)
@@ -77,17 +82,19 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f"new user '{username}' created seccefully")
+            messages.success(
+                request, f"new user '{username}' created seccefully")
             return redirect('login')
     else:
         form = UserRegisterFrom()
-    return render(request, 'app/register.html', {'form':form})
+    return render(request, 'app/register.html', {'form': form})
 
 
 @login_required
 def profile(request):
     orders = Order.objects.filter(user=request.user).order_by('-date')
-    return render(request,'app/profile.html',{'orders':orders})
+    return render(request, 'app/profile.html', {'orders': orders})
+
 
 def delete(request, order_pk):
     user = request.user  # you get the loged user
@@ -95,26 +102,27 @@ def delete(request, order_pk):
     if order.user == user:  # you check if the user is the owner of the order
         order.visible_for_buyer = False  # set the attr to false
         order.save()  # save that specific object
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))  # you redirect to the page you came (you can change this for whatever you want)
+        # you redirect to the page you came (you can change this for whatever you want)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     else:
-        raise PermissionDenied()  # in case someone that is not the user tries to execute that view through the url you make, it will raise an error.
+        # in case someone that is not the user tries to execute that view through the url you make, it will raise an error.
+        raise PermissionDenied()
 
 
 @login_required
 def saller(request):
     user = request.user
-    if user.is_staff :
+    if user.is_staff:
         distributor = Distributor.objects.get(user=user)
-        orders = Order.objects.filter(user=user).order_by('date')
+        orders = Order.objects.filter(distributor=user.username).order_by('date')
         services = Service.objects.filter(distributor=distributor)
-        context = {'distributor':distributor,
-                'services':services,
-                'orders':orders,
-               }
-        return render(request,'app/saller.html',context)
+        context = {'distributor': distributor,
+                   'services': services,
+                   'orders': orders,
+                   }
+        return render(request, 'app/saller.html', context)
     else:
         raise PermissionDenied()
-
 
 
 def service_create(request):
@@ -123,38 +131,46 @@ def service_create(request):
         form = ServiceForm(request.POST, request.FILES)
         if form.is_valid():
             distributor = form.cleaned_data['distributor']
-            if str(distributor) != str(user.username) :
-                messages.warning(request, "please select your own distributor accountt")
+            if str(distributor) != str(user.username):
+                messages.warning(
+                    request, "please select your own distributor accountt")
                 return redirect('add')
             else:
                 form.save()
                 messages.success(
                     request, 'your Service has been saved')
-
                 return HttpResponseRedirect(reverse('saller'))
 
     form = ServiceForm()
     return render(request, 'app/service_add.html', {'form': form})
 
-def service_update(request):
+
+def service_update(request, pk):
     user = request.user
+    service = Service.objects.get(id=pk)
+    form = ServiceForm(instance=service)
     if request.method == "POST":
-        form = ServiceForm(request.POST, request.FILES)
+        form = ServiceForm(request.POST, request.FILES, instance=service)
         if form.is_valid():
             distributor = form.cleaned_data['distributor']
-            if str(distributor) != str(user.username) :
-                messages.warning(request, "please select your own distributor accountt")
-                return redirect('add')
+            if str(distributor) != str(user.username):
+                messages.warning(
+                    request, "please select your own distributor accountt")
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
             else:
                 form.save()
                 messages.success(
                     request, 'your Service has been saved')
-
                 return HttpResponseRedirect(reverse('saller'))
-
-    form = ServiceForm()
     return render(request, 'app/service_add.html', {'form': form})
 
 
-
+def delete_service(request,pk):
+    user = request.user 
+    service = Service.objects.get(id=pk)  
+    if service.distributor.user == user: 
+        service.delete()
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    else:
+        raise PermissionDenied()
 

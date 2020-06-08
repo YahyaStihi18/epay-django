@@ -14,7 +14,9 @@ urlpatterns = [
 
     path('saller/',views.saller,name="saller"),
     path('saller/service/add/', views.service_create, name='add'),
-    path('saller/update',views.service_update,name='update'),
+    path('saller/service/<int:pk>/edit/',views.service_update,name='edit'),
+    path('saller/service/<int:pk>/delete/',views.delete_service,name='delete_service'),
+
 
     path('profile/', views.profile,name='profile'),
     path('profile/delete/<int:order_pk>/', views.delete, name='delete'),

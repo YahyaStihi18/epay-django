@@ -173,7 +173,7 @@
                       {{ order.product }} 
                     </div>
                     <div class="card-body" style="text-align: left;">
-                      <h5 class="card-title">{{ order.amount|floatformat:2}} {{ order.currency }} From: {{ order.saller }}</h5>
+                      <h5 class="card-title">{{ order.amount|floatformat:2}} {{ order.currency }} From: {{ order.distributor }}</h5>
                       <small style="color: green; float: right;">{{ order.status }}</small>
                       <p class="card-text">proof of payment: <a href="{{ order.image.url }}">View Image.</a></p>
                     </div>
