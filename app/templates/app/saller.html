@@ -187,25 +187,33 @@
                         <tbody>
                         
                             {% for order in orders %}
-                                {% if order.visible_for_buyer == True %}
+                                {% if order.visible_for_distributor == True %}
                                     <tr>
-                                        {% if order.status == 'complete' %}
-                                        <td style="color: red;">{{order.amount}} {{ order.currency}} {{order.product}}
-                                        {% else %}
-                                        <td style="color: green;">{{order.amount}} {{ order.currency}} {{order.product}}
-                                         {% endif %}
+                                        {% if order.visible_for_buyer == True %}
+                                            {% if order.status == 'complete' %}
+                                            <td style="color: red;">{{order.amount}} {{ order.currency}} {{order.product}}
+                                            {% else %}
+                                            <td style="color: green;">{{order.amount}} {{ order.currency}} {{order.product}}
+                                            {% endif %}
+
+
 
 
                             <h5 style="padding-top: 15px;">{{ order.name }}</h5>
                             </td>
 
-
                             <td></td>
                             <td style="text-align: right;">
-                            <button type="submit" class="btn btn-outline-success">View</button><br>
+                            <a type="button" role="button" class="btn btn-outline-success" href="{% url 'view_order' order.id %}">View</a><br>
                             <small class="text-muted" style="font-size: 12px;">{{order.date}}</small></td>
+                            {% else%}
+                            <td style="color: gray; font-size: 16px;">Buyer deleted this order!
+                                <td></td>
+                               <td><a style="float: right; font-size: 16px;" href="{% url 'view_order' order.id %}">View</a></td> 
+                            {% endif %}
                             </td>
                           </tr>
+                          
                           {% endif %}
                           {% endfor %}
                         </tbody>

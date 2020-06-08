@@ -99,7 +99,7 @@ def profile(request):
 def delete(request, order_pk):
     user = request.user  # you get the loged user
     order = Order.objects.get(pk=order_pk)  # you get the order through the pk
-    if order.user == user:  # you check if the user is the owner of the order
+    if order.user == user :  # you check if the user is the owner of the order
         order.visible_for_buyer = False  # set the attr to false
         order.save()  # save that specific object
         # you redirect to the page you came (you can change this for whatever you want)
@@ -114,7 +114,7 @@ def saller(request):
     user = request.user
     if user.is_staff:
         distributor = Distributor.objects.get(user=user)
-        orders = Order.objects.filter(distributor=user.username).order_by('date')
+        orders = Order.objects.filter(distributor=user.username).order_by('-date')
         services = Service.objects.filter(distributor=distributor)
         context = {'distributor': distributor,
                    'services': services,
@@ -171,6 +171,37 @@ def delete_service(request,pk):
     if service.distributor.user == user: 
         service.delete()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    else:
+        raise PermissionDenied()
+
+
+def view_order(request,pk):
+    user = request.user
+    order = Order.objects.get(id=pk)
+    if order.distributor != user.username : 
+        raise PermissionDenied()
+    else:
+        return render(request,'app/view_order.html',{'order':order})
+
+def delete_order(request, pk):
+    user = request.user  # you get the loged user
+    order = Order.objects.get(id=pk)  # you get the order through the pk
+    if order.distributor == user.username:  # you check if the user is the owner of the order
+        order.visible_for_distributor = False   # set the attr to false
+        order.save()  # save that specific object
+        # you redirect to the page you came (you can change this for whatever you want)
+        return HttpResponseRedirect(reverse('saller'))
+    else:
+        # in case someone that is not the user tries to execute that view through the url you make, it will raise an error.
+        raise PermissionDenied()
+
+def status_order(request, pk):
+    user = request.user 
+    order = Order.objects.get(id=pk) 
+    if order.distributor == user.username: 
+        order.status = 'complete'  
+        order.save() 
+        return HttpResponseRedirect(reverse('saller'))
     else:
         raise PermissionDenied()
 

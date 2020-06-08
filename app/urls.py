@@ -15,7 +15,11 @@ urlpatterns = [
     path('saller/',views.saller,name="saller"),
     path('saller/service/add/', views.service_create, name='add'),
     path('saller/service/<int:pk>/edit/',views.service_update,name='edit'),
-    path('saller/service/<int:pk>/delete/',views.delete_service,name='delete_service'),
+    path('saller/service/<int:pk>/delete/',views.delete_service,name='delete_service'),   
+    path('saller/service/<int:pk>/view/',views.view_order,name='view_order'),
+    path('profile/delete_service/<int:pk>/', views.delete_order, name='delete_order'),
+    path('profile/status/<int:pk>/', views.status_order, name='status_order'),
+
 
 
     path('profile/', views.profile,name='profile'),
