@@ -10,6 +10,8 @@ urlpatterns = [
     path('contact/',views.contact, name='contact'),
     path('services/credit/',views.credit, name='credit'),
     path('services/games/', views.games, name='games'),
+        path('services/other/',views.credit, name='other'),
+
     path('services/checkout/service/<int:service_id>/', views.checkout, name='checkout'),
 
     path('saller/',views.saller,name="saller"),

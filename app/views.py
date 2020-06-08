@@ -41,6 +41,11 @@ def games(request):
     context = {'services': services}
     return render(request, 'app/games.html', context)
 
+def other(request):
+    services = Service.objects.filter(model='other')
+    context = {'services': services}
+    return render(request, 'app/other.html', context)
+
 
 def checkout(request, service_id):
     service = Service.objects.get(pk=service_id)

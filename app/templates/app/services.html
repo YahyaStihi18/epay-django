@@ -45,6 +45,8 @@
                     <ul class="dropdown">
                         <li><a href="{% url 'credit' %}">Credit</a></li>
                         <li><a href="{% url 'games' %}">Games</a></li>
+                        <li><a href="{% url 'other' %}">Other</a></li>
+
                     </ul>
                 </li>
                 <li><a href="{% url 'contact' %}">Contact</a></li>
@@ -106,6 +108,8 @@
                                     <ul class="dropdown">
                                         <li><a href="{% url 'credit' %}">Credit</a></li>
                                         <li><a href="{% url 'games' %}">Games</a></li>
+                                        <li><a href="{% url 'other' %}">Other</a></li>
+
                                     </ul>
                                 </li>
                                 <li><a href="{% url 'contact' %}">Contact</a></li>
@@ -180,12 +184,25 @@
                 <div class="col-lg-4 col-md-4 col-sm-6">
                     <div class="services__item">
                         <div class="services__item__img">
-                            <img src="{% static 'app/images/game.jpeg'%}" alt="">
+                            <img src="{% static 'app/images/game.jpg' %}" alt="">
                         </div>
                         <div class="services__item__text">
                             <h4><span>02.Games</span> </h4>
                             <p>However, there is much more to branding</p>
                             <a href="{% url 'games'%}">Find Out More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <div class="services__item">
+                        <div class="services__item__img">
+                            <img src="{% static 'app/images/other.png'%}" alt="">
+                        </div>
+                        <div class="services__item__text">
+                            <h4><span>03.Other</span> </h4>
+                            <p>However, there is much more to branding</p>
+                            <a href="{% url 'other'%}">Find Out More</a>
                         </div>
                     </div>
                 </div>

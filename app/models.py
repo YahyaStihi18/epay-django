@@ -22,7 +22,7 @@ class Distributor(models.Model):
 
 
 class Service(models.Model):
-    type_ch = [('credit','credit'),('game','game')]
+    type_ch = [('credit','credit'),('game','game'),('other','other')]
     currency_ch = [('€','€'),('$','$'),('DZD','DZD'),('Unit','Unit')]
     distributor = models.ForeignKey(Distributor,on_delete=models.SET_NULL,null=True,blank=False)
     model = models.CharField(choices=type_ch,max_length=20,null=True,blank=False)

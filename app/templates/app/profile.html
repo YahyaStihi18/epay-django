@@ -45,6 +45,8 @@
                     <ul class="dropdown">
                         <li><a href="{% url 'credit' %}">Credit</a></li>
                         <li><a href="{% url 'games' %}">Games</a></li>
+                        <li><a href="{% url 'other' %}">Other</a></li>
+
                     </ul>
                 </li>
                 <li><a href="{% url 'contact' %}">Contact</a></li>
@@ -106,6 +108,8 @@
                                     <ul class="dropdown">
                                         <li><a href="{% url 'credit' %}">Credit</a></li>
                                         <li><a href="{% url 'games' %}">Games</a></li>
+                                        <li><a href="{% url 'other' %}">Other</a></li>
+
                                     </ul>
                                 </li>
                                 <li><a href="{% url 'contact' %}">Contact</a></li>
@@ -166,6 +170,7 @@
             <!-- form info Section Begin -->
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">My Orders:</h4>
+                <hr>
                 {% for order in orders %}
                 {% if order.visible_for_buyer == True %}
                 <div class="card text-center">
