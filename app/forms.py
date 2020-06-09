@@ -40,5 +40,19 @@ class ServiceForm(forms.ModelForm):
         self.fields['note'].widget.attrs['class'] = 'form-control-account'
 
 
+class EmailForm(forms.ModelForm):
+    class Meta:
+        model = Email
+        fields = ['name','email','text']
+    def __init__(self, *args, **kwargs):
+        super(EmailForm, self).__init__(*args, **kwargs)
+        self.fields['name'].widget.attrs['class'] = 'form-control-account'
+        self.fields['email'].widget.attrs['class'] = 'form-control-account'
+        self.fields['text'].widget.attrs['class'] = 'form-control-account'
+
+
+    
+
+
         
 

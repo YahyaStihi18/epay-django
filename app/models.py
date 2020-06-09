@@ -1,7 +1,7 @@
 from django.db import models
 from phonenumber_field.modelfields import  PhoneNumberField
 from django.contrib.auth.models import User
-import datetime
+from datetime import datetime
 
 
 # Create your models here.
@@ -17,6 +17,8 @@ class Distributor(models.Model):
     facebook = models.CharField(max_length=200,null=True,blank=False)
     ccp = models.BigIntegerField(null=True,blank=False)
     key = models.IntegerField(null=True,blank=False)
+    rip = models.BigIntegerField(null=True,blank=False)
+
     def __str__(self):
         return self.user.username
 
@@ -44,7 +46,7 @@ class Order(models.Model):
     product = models.CharField(blank=True,max_length=200)
     currency = models.CharField(blank=True,max_length=200)
     name = models.CharField(max_length=200,null=True,blank=False)
-    phone = models.FloatField(null=True,blank=False)
+    phone = models.IntegerField(null=True,blank=False)
     amount = models.FloatField(null=True,blank=False)
     email = models.EmailField(null=True,blank=True)
     accountId = models.TextField(default='',blank=False)
@@ -55,4 +57,15 @@ class Order(models.Model):
 
     def __str__(self):
         return self.distributor
+
+class Email(models.Model):
+    name = models.CharField(max_length=200,null=True,blank=False)
+    email = models.EmailField(null=True,blank=False)
+    text = models.TextField(default='',blank=False)
+    time = models.DateTimeField(default=datetime.now, blank=True)
+    def __str__(self):
+        return self.name
+    
+
+
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render, Http404, HttpResponseRedirect, reverse, redirect, get_object_or_404
 from .models import *
-from .forms import OrderForm, ServiceForm
+from .forms import OrderForm, ServiceForm,EmailForm
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -27,7 +27,15 @@ def services(request):
 
 
 def contact(request):
-    return render(request, 'app/contact.html')
+    form = EmailForm
+    context = {'form':form}
+    if request.method == 'POST':
+        form = EmailForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+
+    return render(request, 'app/contact.html',context)
 
 
 def credit(request):

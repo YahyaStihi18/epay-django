@@ -70,7 +70,7 @@
         <ul class="offcanvas__widget">
             <li><i class="fa fa-map-marker"></i> Algeria-jijel</li>
             <li><i class="fa fa-phone"></i> (213) 659-176-510</li>
-            <li><i class="fa fa-envelope"></i> stihiyahya2016@gmail.com</li>
+            <li><i class="fa fa-envelope"></i> epaydz.contact@gmail.com</li>
         </ul>
 
     </div>
@@ -85,7 +85,7 @@
                         <ul class="header__top__widget">
                             <li><i class="fa fa-map-marker"></i> Algeria-jijel</li>
                             <li><i class="fa fa-phone"></i> (213) 659-176-510</li>
-                            <li><i class="fa fa-envelope"></i> stihiyahya2016@gmail.com</li>
+                            <li><i class="fa fa-envelope"></i> epaydz.contact@gmail.com</li>
                         </ul>
                     </div>
                 </div>
@@ -129,9 +129,6 @@
 
                             </ul>
                         </nav>
-                        <div class="header__search">
-                            <i class="fa fa-search search-switch"></i>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -214,6 +211,7 @@
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Ccp: {{service.distributor.ccp}}</span>
                             <strong>Key: {{service.distributor.key}}</strong>
+                            <span>RIP: {{service.distributor.rip}}</span>
                         </li>
 
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -297,8 +295,9 @@
                         <div class="footer__logo">
                             <img src="{% static 'app/images/footer-logo.png' %}" alt=""></a>
                         </div>
-                        <p>Please remember though that how far you go is up to you. There is no substitute for your own
-                            work and effort in succeeding in this business.</p>
+                        <p>Please remember that customer satisfaction is our priority 
+                            feel free to ask ,consult, and report to us if there is any problem facing 
+                            you during using our services</p>
                     </div>
                 </div>
                 <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
@@ -306,10 +305,9 @@
                         <h5>Services</h5>
                         <div class="footer__widget">
                             <ul>
-                                <li><a href="#">service 1</a></li>
-                                <li><a href="#">service 2</a></li>
-                                <li><a href="#">service 3</a></li>
-                                <li><a href="#">service 4</a></li>
+                                <li><a href="{% url 'credit' %}">Credit</a></li>
+                                <li><a href="{% url 'games' %}">Games</a></li>
+                                <li><a href="{% url 'other' %}">Other</a></li>
                             </ul>
                         </div>
                     </div>
@@ -332,9 +330,7 @@
                         <h5>Open Hours</h5>
                         <p>We work all days a week, Please contact us for any inquiry.</p>
                         <ul>
-                            <li>Monday - Friday: 11:00 am - 8:00 pm</li>
-                            <li>Saturday: 10:00 am - 6:00 pm</li>
-                            <li>Sunday: 11:00 am - 6:00 pm</li>
+                            <li>Sunday - Friday: 8:00 am - 12:00 pm</li>
                         </ul>
                     </div>
                 </div>
@@ -354,7 +350,7 @@
                             <p>Copyright &copy;
                                 <script>document.write(new Date().getFullYear());</script> All rights reserved |<i
                                     class="fa fa-heart" aria-hidden="true"></i> by <a href="https://mail.google.com/"
-                                    target="_blank">stihiyahya2016@gmail.com</a></p>
+                                    target="_blank">epaydz.contact@gmail.com</a></p>
                         </div>
                     </div>
 

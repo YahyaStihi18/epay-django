@@ -6,3 +6,5 @@ from .models import *
 admin.site.register(Distributor)
 admin.site.register(Service)
 admin.site.register(Order)
+admin.site.register(Email)
+
