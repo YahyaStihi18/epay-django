@@ -165,12 +165,12 @@
         <div class="container">
             <div class="row">
                 {% for service in services %}
-                <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-5">
                     <div class="services__item">
                         <div class="services__item__img">
-                            <img src="{{service.image.url}}" style="max-height: 18rem;" alt="">
+                            <img src="{{service.image.url}}" style="height: 12rem;" alt="">
                         </div>
-                        <div class="services__item__text">
+                        <div class="services__item__text" style="height: 10rem;">
                             <h4><span>DZD {{service.price}}</span></h4>
                             <p style="font-weight: 900;">{{ service.name}}</p>
                             <a href="{% url 'checkout' service.id %}">order now</a>
