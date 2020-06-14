@@ -1,4 +1,4 @@
-from django.shortcuts import render, Http404, HttpResponseRedirect, reverse, redirect, get_object_or_404
+from django.shortcuts import render, Http404, HttpResponseRedirect, reverse, redirect, get_object_or_404,HttpResponse
 from .models import *
 from .forms import OrderForm, ServiceForm,EmailForm
 from django.contrib import messages
@@ -217,4 +217,18 @@ def status_order(request, pk):
         return HttpResponseRedirect(reverse('saller'))
     else:
         raise PermissionDenied()
+
+
+def clean(request):
+    user = request.user
+    orders = Order.objects.filter(visible_for_distributor=False)
+    if user.is_superuser:
+        for order in orders:
+            if order.visible_for_buyer == False:
+                order.delete()
+                return HttpResponse('orders has been deleted from the data base')
+    else:
+        raise PermissionDenied()
+
+    return HttpResponse('No orders has been deleted!!!')
 
